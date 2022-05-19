@@ -1,67 +1,83 @@
 // JavaScript source code
 const fs = require('fs');
 
-let obj = new testObject("hola", "tt", "00");
-console.log(obj);
-
-function testObject(title, price, thumbnail) {
+function bookItem(title, price, thumbnail) {
     this.title = title;
     this.price = price;
     this.thumbnail = thumbnail;
 }
 
 class Container {
-    constructor(){
-    this.mIds = 0
-    }
 
     save(obj) {
-        this.mIds++;
-        obj.id = this.mIds;
-        fs.appendFileSync('../GeneratedFiles/testFile.txt', JSON.stringify(obj));
+        const arrayItems = this.getAll() ? this.getAll() : [];
+        console.log(arrayItems.length);
+
+        obj.id = arrayItems.length == 0? 1 : arrayItems[arrayItems.length-1].id +1; //We need to find a better way to do this
+        arrayItems.push(obj);
+
+        fs.writeFileSync('../GeneratedFiles/testFile.txt',JSON.stringify(arrayItems));
         return this.mIds;
     }
 
     getAll() {
-        const txt = fs.readFileSync('../GeneratedFiles/testFile.txt', 'utf-8');
-        const array = JSON.parse(txt);
-        console.log(array);
+        try {
+            const content = fs.readFileSync('../GeneratedFiles/testFile.txt', 'utf-8');
+            const array = JSON.parse(content);
+            return array;
+
+        } catch (e) {
+            console.log(e);
+            return undefined;
+        }
+    }
+
+    getById(id) {
+        const arrayItems = this.getAll() ? this.getAll() : [];
+        for (var i = 0; i < arrayItems.length; i++) {
+            if (arrayItems[i].id == id) {
+                return arrayItems[i];
+            }
+        }
+        return null;
+    }
+
+    deleteById(id) {
+        const arrayItems = this.getAll() ? this.getAll() : [];
+        try {
+            for (var i = 0; i < arrayItems.length; i++) {
+                if (arrayItems[i].id == id) {
+                    arrayItems.splice(i, 1);
+                    fs.writeFileSync('../GeneratedFiles/testFile.txt', JSON.stringify(arrayItems));
+                    console.log("Item deleted!");
+                }
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    deleteAll() {
+        const arrayItems = [];
+        fs.writeFileSync('../GeneratedFiles/testFile.txt', JSON.stringify(arrayItems));
+        console.log("All deleted!");
     }
 }
-const testClass = new Container();
 
-testClass.save(obj);
-testClass.save(obj);
-testClass.getAll();
+const bookHandler = new Container();
+let firstBook = new bookItem('Infinite and Divine', 60, 'https://c.tenor.com/3_mXIoBPNhoAAAAC/party-parrot.gif');
+let secondBook = new bookItem('JS for Dummies', 80, 'https://c.tenor.com/3_mXIoBPNhoAAAAC/party-parrot.gif');
+let thirdBook = new bookItem('Silmarilion', 50, 'https://c.tenor.com/3_mXIoBPNhoAAAAC/party-parrot.gif');
 
-/*
-class User {
-    constructor(obj = { }) {
-        this.firstName = obj?.firstName || undefined;
-        this.apellido = obj?.lastName || undefined;
+bookHandler.save(firstBook);
+bookHandler.save(secondBook);
+bookHandler.save(thirdBook);
+console.log(bookHandler.getAll());
 
-        this.books = []; //Object. Can we force this to only take Object?
-        this.pets = []; //String. Can we force this to only take Strings?
-    }
+bookHandler.deleteById(2);
+console.log(bookHandler.getAll());
 
-    getFullName(){
-        return `${this.firstName} ${this.lastName}`;
-    }
+console.log(bookHandler.getById(1));
 
-    addPet(petName) {
-        this.pets.push(petName);
-    }
-
-    countPets() {
-        return this.pets.length;
-    }
-
-    addBook(bookName, bookAuthor) {
-        this.books.push({ name:bookName, author:bookAuthor});
-    }
-
-    getBookNames() {
-        result = this.books.map(obj => obj.author);
-    }
-}
-*/
+bookHandler.deleteAll();
+console.log(bookHandler.getAll());
