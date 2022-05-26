@@ -101,4 +101,4 @@ console.log(bookHandler.getById(1));
 
 app.get('/', (req, res) => res.send({ message: 'Hello World' }));
 app.get('/products', (req, res) => res.send({ message: bookHandler.getAll() }));
-app.get('/productsRandom', (req, res) => res.send({ message: bookHandler.getById(Math.floor(Math.round(Math.random() * bookHandler.getProductAmount())) + 1 ) })); //We don want decimals, we want it random between 1 and product amount
+app.get('/productsRandom', (req, res) => res.send({ message: bookHandler.getById(Math.round(Math.floor(Math.random() * bookHandler.getProductAmount())+1 )) })); //We don want decimals, we want it random between 1 and product amount
