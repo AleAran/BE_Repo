@@ -10,7 +10,7 @@ const fs = require('fs');
 const express = require('express');
 const app = express();
 
-const PORT = 8080; //port 0 picks up random
+const PORT = process.env.PORT || 8080; //port 0 picks up random
 
 const server = app.listen(PORT, () => console.log(`Http Server on port ${server.address().port}`));
 server.on("error", error => console.log(`Error on server ${error}`));
