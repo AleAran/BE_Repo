@@ -1,0 +1,1 @@
+[{"title":"Infinite and Divine","price":60,"thumbnail":"https://c.tenor.com/3_mXIoBPNhoAAAAC/party-parrot.gif","id":1},{"title":"JS for Dummies","price":80,"thumbnail":"https://c.tenor.com/3_mXIoBPNhoAAAAC/party-parrot.gif","id":2},{"title":"Silmarilion","price":50,"thumbnail":"https://c.tenor.com/3_mXIoBPNhoAAAAC/party-parrot.gif","id":3}]

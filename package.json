@@ -2,9 +2,9 @@
   "name": "be-practice",
   "version": "1.0.0",
   "description": "",
-  "main": "Exercise.js",
+  "main": "Server.js",
   "scripts": {
-	"start": "node Exercise.js"
+	"start": "node Server.js"
   },
   "keywords": [],
   "author": "",

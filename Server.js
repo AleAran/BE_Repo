@@ -31,16 +31,13 @@ class Container {
         obj.id = this.arrayItems.length == 0 ? 1 : this.arrayItems[this.arrayItems.length-1].id +1; //We need to find a better way to do this
         this.arrayItems.push(obj);
 
-        fs.writeFileSync('../GeneratedFiles/testFile.txt',JSON.stringify(this.arrayItems));
+        fs.writeFileSync('testFile.txt',JSON.stringify(this.arrayItems));
         return this.mIds;
     }
 
     getAll() {
         try {
-            if (!fs.existsSync('../GeneratedFiles/')) {
-                fs.mkdirSync('../GeneratedFiles/');
-            }
-            const content = fs.readFileSync('../GeneratedFiles/testFile.txt', 'utf-8');
+            const content = fs.readFileSync('testFile.txt', 'utf-8');
             const array = JSON.parse(content);
             return array;
 
@@ -67,7 +64,7 @@ class Container {
             for (var i = 0; i < arrayItems.length; i++) {
                 if (arrayItems[i].id == id) {
                     arrayItems.splice(i, 1);
-                    fs.writeFileSync('../GeneratedFiles/testFile.txt', JSON.stringify(arrayItems));
+                    fs.writeFileSync('testFile.txt', JSON.stringify(arrayItems));
                     console.log("Item deleted!");
                 }
             }
@@ -78,7 +75,7 @@ class Container {
 
     deleteAll() {
         const arrayItems = [];
-        fs.writeFileSync('../GeneratedFiles/testFile.txt', JSON.stringify(arrayItems));
+        fs.writeFileSync('testFile.txt', JSON.stringify(arrayItems));
         console.log("All deleted!");
     }
 }
