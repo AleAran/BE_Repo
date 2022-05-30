@@ -2,10 +2,9 @@
   "name": "be-practice",
   "version": "1.0.0",
   "description": "",
-  "main": "./scripts/Exercise.js",
+  "main": "Exercise.js",
   "scripts": {
-	"start": "node Exercise.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+	"start": "node Exercise.js"
   },
   "keywords": [],
   "author": "",
